@@ -1,12 +1,11 @@
-import { jest, describe, it, expect, afterEach } from "@jest/globals";
-import AggregateError from "aggregate-error";
-import {
+const AggregateError = require("aggregate-error");
+const {
   jestBanConsole,
   installConsoleProxy,
   clearConsoleProxy,
   expectConsoleBan,
   resetConsole,
-} from "./index.js";
+} = require("./index.js");
 
 // Skip writing to console in tests.
 console.log = () => {};
