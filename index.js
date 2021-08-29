@@ -8,7 +8,7 @@ let mockConsole = {};
 const proxyConsole = new Proxy(_console, {
   get(target, property) {
     const result =
-      Reflect.get(mockConsole, property) ?? Reflect.get(target, property);
+      Reflect.get(mockConsole, property) || Reflect.get(target, property);
 
     if (jest.isMockFunction(result) || typeof result !== "function") {
       return result;
