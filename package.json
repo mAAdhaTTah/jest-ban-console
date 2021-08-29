@@ -4,7 +4,7 @@
   "description": "Ban console from being called in Jest tests",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,6 @@
     "unit",
     "testing"
   ],
-  "type": "module",
   "author": "mAAdhaTTah <jamesorodig@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -24,8 +23,7 @@
   },
   "homepage": "https://github.com/mAAdhaTTah/jest-ban-console#readme",
   "dependencies": {
-    "@jest/globals": "^27.0.0",
-    "aggregate-error": "^4.0.0"
+    "aggregate-error": "^3.1.0"
   },
   "devDependencies": {
     "jest": "^27.0.0",

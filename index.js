@@ -1,5 +1,4 @@
-import { afterEach, beforeEach, jest } from "@jest/globals";
-import AggregateError from "aggregate-error";
+const AggregateError = require("aggregate-error");
 
 const _console = globalThis.console;
 
@@ -8,7 +7,7 @@ let mockConsole = {};
 const proxyConsole = new Proxy(_console, {
   get(target, property) {
     const result =
-      Reflect.get(mockConsole, property) ?? Reflect.get(target, property);
+      Reflect.get(mockConsole, property) || Reflect.get(target, property);
 
     if (jest.isMockFunction(result) || typeof result !== "function") {
       return result;
@@ -20,18 +19,18 @@ const proxyConsole = new Proxy(_console, {
   },
 });
 
-export const installConsoleProxy = () => {
+const installConsoleProxy = () => {
   if (globalThis.console !== proxyConsole) {
     globalThis.console = proxyConsole;
   }
   clearConsoleProxy();
 };
 
-export const clearConsoleProxy = () => {
+const clearConsoleProxy = () => {
   mockConsole = {};
 };
 
-export const expectConsoleBan = () => {
+const expectConsoleBan = () => {
   const errors = [];
 
   for (const key in mockConsole) {
@@ -53,11 +52,11 @@ export const expectConsoleBan = () => {
   }
 };
 
-export const resetConsole = () => {
+const resetConsole = () => {
   globalThis.console = _console;
 };
 
-export const jestBanConsole = () => {
+const jestBanConsole = () => {
   beforeEach(() => {
     installConsoleProxy();
   });
@@ -66,4 +65,12 @@ export const jestBanConsole = () => {
     expectConsoleBan();
     resetConsole();
   });
+};
+
+module.exports = {
+  jestBanConsole,
+  installConsoleProxy,
+  clearConsoleProxy,
+  expectConsoleBan,
+  resetConsole,
 };
